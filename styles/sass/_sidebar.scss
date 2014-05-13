@@ -1,0 +1,19 @@
+#sidebar {
+	height:100%;
+	width:450px;
+	min-width:400px;
+	max-width:650px;
+	background-color:$sidebarBackground;
+	float:left;
+	box-shadow: 5px 0 5px #919191;
+	z-index:2;
+
+	.sidebar-title {
+		text-align:center;
+		padding:10px;
+	}
+
+	.sidebar-content {
+		padding:20px 20px;
+	}
+}

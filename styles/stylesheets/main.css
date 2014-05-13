@@ -14,16 +14,118 @@
 	CSS is much easier to maintain when it is split up into discrete chunks.  In order to compile sass files into a single 
 	stylesheet we need to import the individual pieces into a master file (this is that file!).
 */
-/* line 18, ../sass/main.scss */
-html, body {
-  padding: 0;
+/* line 1, ../sass/_header.scss */
+header {
+  height: 120px;
   margin: 0;
+  padding: 0;
+}
+/* line 6, ../sass/_header.scss */
+header #logo {
+  position: absolute;
+  left: 40px;
+  top: 8px;
+}
+/* line 12, ../sass/_header.scss */
+header #org-bar {
+  height: 36px;
+  background-color: #000;
+  color: #fff;
+}
+/* line 17, ../sass/_header.scss */
+header #org-bar h2 {
+  padding: 7px 0 0 0;
+  margin: 0 0 0 150px;
+  font-size: 24px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+/* line 25, ../sass/_header.scss */
+header #title-bar {
+  height: 48px;
+  background-color: #fff;
+  color: #000;
+}
+/* line 30, ../sass/_header.scss */
+header #title-bar h1 {
+  padding: 10px 0 0 0;
+  margin: 0 0 0 150px;
+  font-size: 28px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+/* line 39, ../sass/_header.scss */
+header #office-bar {
+  height: 36px;
+  background-color: #336699;
+  position: relative;
+  color: white;
+}
+/* line 45, ../sass/_header.scss */
+header #office-bar h3 {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  right: 150px;
+  top: 8px;
+}
+
+/* line 1, ../sass/_sidebar.scss */
+#sidebar {
   height: 100%;
-  width: 100%;
+  width: 450px;
+  min-width: 400px;
+  max-width: 650px;
+  background-color: #f1f1f1;
+  float: left;
+  box-shadow: 5px 0 5px #919191;
+  z-index: 2;
+}
+/* line 11, ../sass/_sidebar.scss */
+#sidebar .sidebar-title {
+  text-align: center;
+  padding: 10px;
+}
+/* line 16, ../sass/_sidebar.scss */
+#sidebar .sidebar-content {
+  padding: 20px 20px;
 }
 
 /* line 1, ../sass/_map.scss */
 #map {
   height: 100%;
+  width: 70%;
+}
+
+/* line 1, ../sass/_footer.scss */
+footer {
+  height: 75px;
+  background-color: #336699;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+}
+/* line 8, ../sass/_footer.scss */
+footer a {
+  color: #fff;
+  text-decoration: none;
+  display: inline-block;
+}
+/* line 13, ../sass/_footer.scss */
+footer a:hover {
+  text-decoration: underline;
+  color: #fff;
+}
+
+/* line 23, ../sass/main.scss */
+html, body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
   width: 100%;
+  overflow: hidden;
+}
+
+/* line 31, ../sass/main.scss */
+.tab-content {
+  margin-top: 10px;
 }
