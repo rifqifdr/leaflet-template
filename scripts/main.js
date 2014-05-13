@@ -2,8 +2,11 @@ var createMap = function () {
 	var map = L.map('map').setView([35.302, -85.381], 6);
 
 	// For a list of basemaps see http://leaflet-extras.github.io/leaflet-providers/preview/
-	var terrain = L.tileLayer('http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png', {
-		attribution: '&copy; <a href="http://www.opencyclemap.org">OpenCycleMap</a>, &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+	var terrain = L.tileLayer('http://{s}.tile.stamen.com/terrain/{z}/{x}/{y}.png', {
+		attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+		subdomains: 'abcd',
+		minZoom: 4,
+		maxZoom: 18
 	}).addTo(map);
 
 	var aerial = L.tileLayer('http://oatile{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg', {
@@ -11,16 +14,21 @@ var createMap = function () {
 		subdomains: '1234'
 	});
 
-	var labels = L.tileLayer('http://a{s}.acetate.geoiq.com/tiles/acetate-labels/{z}/{x}/{y}.png', {
-		attribution: '&copy;2012 Esri & Stamen, Data from OSM and Natural Earth',
-		subdomains: '0123',
-		minZoom: 2,
-		maxZoom: 18
+	var esriImagery = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+		attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+	});
+
+	var labels = L.tileLayer('http://{s}.tile.stamen.com/toner-labels/{z}/{x}/{y}.png', {
+		attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+		subdomains: 'abcd',
+		minZoom: 0,
+		maxZoom: 20
 	});
 
 	var basemaps = {
 		'Terrain': terrain,
-		'Imagery': aerial
+		'Imagery': aerial,
+		'ESRI Imagery': esriImagery
 	};
 
 	var overlays = {
@@ -43,7 +51,7 @@ var calculateLayout = function (e) {
 		sidebar.height( win.height() - header.height() - footer.height() );
 };
 
-var resetLayout = _.debounce( calculateLayout,500); // Maximum run of once per 1/2 second for performance
+var resetLayout = _.debounce( calculateLayout,250 ); // Maximum run of once per 1/4 second for performance
 
 $(document).ready(function () {
 	resetLayout();
