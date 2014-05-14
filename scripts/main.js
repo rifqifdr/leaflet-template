@@ -54,7 +54,8 @@ $(document).ready(function () {
 
 	$('#sidebar').resizable({
 		animate: false,
-		resize: resetLayout 
+		resize: resetLayout,
+		handles: "e, w"
 	});
 });
 
