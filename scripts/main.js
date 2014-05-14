@@ -7,35 +7,28 @@ var createMap = function () {
 		subdomains: 'abcd',
 		minZoom: 4,
 		maxZoom: 18
-	}).addTo(map);
+	});
 
 	var aerial = L.tileLayer('http://oatile{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg', {
 		attribution: 'Tiles Courtesy of <a href="http://www.mapquest.com/">MapQuest</a> &mdash; Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency',
 		subdomains: '1234'
 	});
 
-	var esriImagery = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-		attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
-	});
-
-	var labels = L.tileLayer('http://{s}.tile.stamen.com/toner-labels/{z}/{x}/{y}.png', {
-		attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
-		subdomains: 'abcd',
-		minZoom: 0,
-		maxZoom: 20
-	});
+	// ESRI Leaflet integration (allows for use of ESRI WMS layers according to TOS)
+	var esriImagery = L.esri.basemapLayer('Imagery').addTo(map);
+	var esriLabels = L.esri.basemapLayer('ImageryLabels');
 
 	var basemaps = {
 		'Terrain': terrain,
-		'Imagery': aerial,
+		//'Imagery': imagery,
 		'ESRI Imagery': esriImagery
 	};
 
 	var overlays = {
-		'Labels': labels
+		'Labels': esriLabels
 	};
 
-	L.control.scale({'position': 'bottomright'}).addTo(map);
+	L.control.scale().addTo(map);
 	L.control.layers(basemaps, overlays).addTo(map);
 };
 
