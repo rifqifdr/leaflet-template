@@ -22,12 +22,30 @@ var createMap = function () {
 		'Labels': esriLabels
 	};
 
+	// Instantiate sidebar
+    var sidebar = L.control.sidebar('sidebar', {
+	    position: 'left'
+	}).addTo(map);
+
+	setTimeout(function () {
+	    sidebar.show();
+	}, 500);
+
+	// Add native looking Leaflet buttons with Font Awesome icons
 	L.easyButton(
 		'fa-question-circle', 
     	function (){$('#disclaimer-modal').modal();},
     	'Help!',
     	map
     );
+
+    L.easyButton(
+		'fa-list', 
+    	function (){sidebar.toggle();},
+    	'Toggle Sidebar',
+    	map
+    );
+
 	L.control.scale().addTo(map);
 	L.control.layers(basemaps, overlays).addTo(map);
 };
@@ -41,10 +59,9 @@ var calculateLayout = function (e) {
 		header = $('header'),
 		footer = $('footer');
 
-		map.width( win.width() - sidebar.width() );
 		map.height( win.height() - header.height() - footer.height() );
-		sidebar.height( win.height() - header.height() - footer.height() );
-		sideContent.height( win.height() - sideContent.offset().top - 100 );
+		sidebar.height( win.height() - header.height() - footer.height() -50 );
+		//sideContent.height( win.height() - sideContent.offset().top - 100 );
 };
 
 var resetLayout = _.debounce( calculateLayout,250 ); // Maximum run of once per 1/4 second for performance
@@ -55,11 +72,7 @@ $(document).ready(function () {
 
 	$('#disclaimer-modal').modal();
 
-	$('#sidebar').resizable({
-		animate: false,
-		resize: resetLayout,
-		handles: "e, w"
-	});
+
 });
 
 // Resize the map based on window and sidebar size
