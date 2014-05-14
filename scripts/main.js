@@ -35,6 +35,8 @@ var createMap = function () {
 var calculateLayout = function (e) {
 	var map = $('#map'),
 		sidebar = $('#sidebar'),
+		sideTitle = $('.sidebar-title'),
+		sideContent = $('.sidebar-content'),
 		win = $(window),
 		header = $('header'),
 		footer = $('footer');
@@ -42,6 +44,7 @@ var calculateLayout = function (e) {
 		map.width( win.width() - sidebar.width() );
 		map.height( win.height() - header.height() - footer.height() );
 		sidebar.height( win.height() - header.height() - footer.height() );
+		sideContent.height( win.height() - sideContent.offset().top - 100 );
 };
 
 var resetLayout = _.debounce( calculateLayout,250 ); // Maximum run of once per 1/4 second for performance
