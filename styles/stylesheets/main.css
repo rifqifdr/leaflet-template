@@ -88,6 +88,7 @@ header #office-bar h3 {
 /* line 16, ../sass/_sidebar.scss */
 #sidebar .sidebar-content {
   padding: 20px 20px;
+  overflow-y: scroll;
 }
 
 /* line 1, ../sass/_map.scss */

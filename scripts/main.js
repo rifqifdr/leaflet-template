@@ -9,25 +9,25 @@ var createMap = function () {
 		maxZoom: 18
 	});
 
-	var aerial = L.tileLayer('http://oatile{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg', {
-		attribution: 'Tiles Courtesy of <a href="http://www.mapquest.com/">MapQuest</a> &mdash; Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency',
-		subdomains: '1234'
-	});
-
-	// ESRI Leaflet integration (allows for use of ESRI WMS layers according to TOS)
+	//ESRI Leaflet integration (allows for use of ESRI WMS layers according to TOS)
 	var esriImagery = L.esri.basemapLayer('Imagery').addTo(map);
 	var esriLabels = L.esri.basemapLayer('ImageryLabels');
 
 	var basemaps = {
 		'Terrain': terrain,
-		//'Imagery': imagery,
-		'ESRI Imagery': esriImagery
+		'Satellite': esriImagery
 	};
 
 	var overlays = {
 		'Labels': esriLabels
 	};
 
+	L.easyButton(
+		'fa-question-circle', 
+    	function (){$('#disclaimer-modal').modal();},
+    	'Help!',
+    	map
+    );
 	L.control.scale().addTo(map);
 	L.control.layers(basemaps, overlays).addTo(map);
 };
