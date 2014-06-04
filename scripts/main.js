@@ -1,5 +1,5 @@
 var createMap = function () {
-	var map = L.map('map').setView([35.302, -85.381], 6);
+	var map = L.map('map').setView([35.803, -96.895], 4);
 
 	// For a list of basemaps see http://leaflet-extras.github.io/leaflet-providers/preview/
 	var terrain = L.tileLayer('http://{s}.tile.stamen.com/terrain/{z}/{x}/{y}.png', {
@@ -9,9 +9,18 @@ var createMap = function () {
 		maxZoom: 18
 	});
 
+	// Get raw data (CSV, WKT, KML, GPX, etc) onto a map with leaflet-omnivore, add custom style;  https://github.com/mapbox/leaflet-omnivore
+	var offices = omnivore.csv('data/offices.csv')
+		.on('ready', function () {
+			offices.eachLayer(function (layer) {
+				layer.bindPopup('<strong>' + layer.feature.properties.ORGNAME + '</strong>');
+			})
+		})
+		.addTo(map);
+
 	//ESRI Leaflet integration (allows for use of ESRI WMS layers according to TOS)
-	var esriImagery = L.esri.basemapLayer('Imagery').addTo(map);
-	var esriLabels = L.esri.basemapLayer('ImageryLabels');
+	var esriImagery = L.esri.basemapLayer('Imagery').addTo(map),
+		esriLabels = L.esri.basemapLayer('ImageryLabels');
 
 	var basemaps = {
 		'Terrain': terrain,
@@ -19,22 +28,26 @@ var createMap = function () {
 	};
 
 	var overlays = {
+		'FWS Offices': offices,
 		'Labels': esriLabels
 	};
 
-	// Instantiate sidebar
+	// Instantiate sidebar, open when Disclaimer modal is closed
     var sidebar = L.control.sidebar('sidebar', {
 	    position: 'left'
 	}).addTo(map);
 
-	setTimeout(function () {
+	$('#disclaimer-modal').on('hidden.bs.modal', function () {
 	    sidebar.show();
-	}, 500);
+	});
 
 	// Add native looking Leaflet buttons with Font Awesome icons
 	L.easyButton(
 		'fa-question-circle', 
-    	function (){$('#disclaimer-modal').modal();},
+    	function () {
+    		$('#disclaimer-modal').modal();
+    		sidebar.hide();
+    	},
     	'Help!',
     	map
     );
@@ -70,8 +83,7 @@ $(document).ready(function () {
 	resetLayout();
 	createMap();
 
-	$('#disclaimer-modal').modal();
-
+	$('#disclaimer-modal').modal(); // open modal on page load
 
 });
 
