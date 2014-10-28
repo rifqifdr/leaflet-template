@@ -9,14 +9,18 @@ var createMap = function () {
 		maxZoom: 18
 	});
 
-	// Get raw data (CSV, WKT, KML, GPX, etc) onto a map with leaflet-omnivore, add custom style;  https://github.com/mapbox/leaflet-omnivore
+	// Get raw data (CSV, WKT, KML, GPX, etc) onto a map with leaflet-omnivore  https://github.com/mapbox/leaflet-omnivore
 	var offices = omnivore.csv('data/offices.csv')
-		.on('ready', function () {
-			offices.eachLayer(function (layer) {
-				layer.bindPopup('<strong>' + layer.feature.properties.ORGNAME + '</strong>');
+		
+		.on('ready', function () { // When the data is loaded
+			offices.eachLayer(function (layer) { // Loop through each office
+				layer.bindPopup('<strong>' + layer.feature.properties.ORGNAME + '</strong>'); // Add a popup containing the office's ORGNAME property
 			})
 		})
 		.addTo(map);
+
+	// Feature service from the R4 ArcGIS Server instance (behind the firewall)
+	var regionalOffice = L.esri.featureLayer('http://ifw4ro-gis2:6080/arcgis/rest/services/FeatureServicesTest/CenturyBlvd/FeatureServer/0').addTo(map);
 
 	//ESRI Leaflet integration (allows for use of ESRI WMS layers according to TOS)
 	var esriImagery = L.esri.basemapLayer('Imagery').addTo(map),
@@ -29,7 +33,8 @@ var createMap = function () {
 
 	var overlays = {
 		'FWS Offices': offices,
-		'Labels': esriLabels
+		'Labels': esriLabels,
+		'Feature Layer': regionalOffice
 	};
 
 	// Instantiate sidebar, open when Disclaimer modal is closed
