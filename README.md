@@ -13,13 +13,13 @@ To begin you'll want to [fork](https://github.com/USFWS/leaflet-template/fork) (
 Generally speaking the pertinent pieces of the template that should be changed for your project are identified with comments in the code.  This is true of both `index.html`, which lays out the elements you see on the page as well as the JavaScript, which controls the page's interactivity.
 
 #### Example HTML comment
-```
+```html
 <!-- Page title appears in the browser's tab -->
 <title>Put your Project Title here!</title>
 ```
 
 #### Example JavaScript comment
-```
+```javascript
 // Get raw data (CSV, WKT, KML, GPX, etc) onto a map with leaflet-omnivore  https://github.com/mapbox/leaflet-omnivore
 var offices = omnivore.csv('data/offices.csv');
 ```
